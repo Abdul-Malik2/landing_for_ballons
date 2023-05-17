@@ -1,0 +1,18 @@
+.btn-text
+    &:link, &:visited // так как наша кнопка сделана из ссылки, то мы стилизуем её обычный вид, и вид после посещения
+        font-size: $font-size-paragraph
+        letter-spacing: .2rem
+        font-weight: 700
+        color: $color-brown-dark
+        text-decoration: none
+        padding: 1rem
+        border-bottom: 1px solid $color-brown-dark
+        display: inline-block // если делать кнопку из ссылки, чтобы она нажималась, надо обязательно прописывать
+        transition: .5 all
+    &:hover
+        background-color: $color-brown-dark
+        color: $color-white
+        box-shadow: $box-shadow
+        transform: translateY(-.2rem)
+    &:active
+        transform: translateY(0rem)

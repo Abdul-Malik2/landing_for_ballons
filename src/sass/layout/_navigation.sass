@@ -1,0 +1,110 @@
+.navigation
+    &__toggle
+        display: none
+    &__button
+        background: $color-white
+        width: 5rem
+        height: 5rem
+        border-radius: 50%
+        position: fixed
+        top: 10rem
+        right: 10rem
+        z-index: 20
+        text-align: center // центрируем его дочерний элемент (гамбургер)
+        cursor: pointer //  чтобы при наведении стрлочка превращалась в руку
+        box-shadow: $box-shadow
+    &__background
+        width: 4rem
+        height: 4rem
+        border-radius: 50%
+        background: radial-gradient($color-brown-light, $color-brown-dark) // в отличии от линейного градиента, radial-gradient расходится по кругу
+        position: fixed
+        right: 10.5rem
+        top: 10.5rem
+        z-index: 10
+        //transform: scale(50) // увеличиваем фон, чтобы он был на весь экран
+        transition: .7s all
+    &__nav
+        height: 100vh
+        width: 100%
+        position: fixed
+        top: 0
+        right: 0
+        z-index: 15
+        transition: .3s all cubic-bezier(0.68, -0.6, 0.32, 1.6) // cubic-bezier свойство устанавливающее временные промежутки активности анимации (можно выбрать на сайте cubic-bezie.com)
+
+        opacity: 0
+        width: 0
+    &__list
+        position: absolute // такой способ выравнивания дочернего элемента по центру родительского
+        top: 50% // такой способ выравнивания дочернего элемента по центру родительского
+        left: 50% // такой способ выравнивания дочернего элемента по центру родительского
+        transform: translate(-50%, -50%) // такой способ выравнивания дочернего элемента по центру родительского
+        list-style: none
+        width: 100% // задаём ширину строкам 100%, чтобы они не преносились на следующую строку 
+    &__item
+        text-align: center
+        
+        &:not(last-child)
+            margin-bottom: 5rem
+            
+    &__link
+        &:link, &:visited            
+            text-decoration: none
+            font-size: 4rem
+            letter-spacing: 0.5rem
+            text-transform: uppercase
+            color: $color-white
+            background: linear-gradient(120deg,transparent 0%, transparent 50%, $color-white 50%)
+            background-size: 220%
+            padding: 1rem 2rem
+            transition: 1s all
+            display: inline-block // чтобы работала анимация
+        &:hover, &:active
+            background-position: 100%
+            color: $color-brown-dark
+            transform: translateX(2rem)
+
+    &__toggle:checked ~ &__background
+        transform: scale(80) // при нажатии на &__toggle соседний &__background увеличивается в scale(раз) раз
+
+    &__toggle:checked ~ &__nav
+        width: 100%
+        opacity: 1
+
+    &__icon
+        position: relative
+        margin-top: 2.4rem
+        &::before, // первая полоска гамбургера
+        &, // вторая полоска гамбургера
+        &::after // третья полоска гамбургера
+            width: 3rem
+            height: .2rem
+            background: $color-black
+            display: inline-block // чтобы было легче анимировать
+        &::before,
+        &::after
+            content: "" // без этого псевдоэлемент не появится
+            position: absolute
+            left: 0
+            transition: .3s all
+        &::before
+            top: -.8rem
+        &::after
+            top: .8rem
+    &__button:hover &__icon::before // при наведении на button воздействуем на before
+        top: -1rem
+        
+    &__button:hover &__icon::after // при наведении на button воздействуем на after
+        top: 1rem
+    &__toggle:checked + &__button &__icon // при нажатии на &__toggle воздействие оказывается на дочерний элемент &__button, а именно на &__icon
+        background: transparent
+
+    &__toggle:checked + &__button &__icon::before // при нажатии на &__toggle воздействие оказывается на дочерний элемент &__button,а именно на псевдоэлемент &__icon, а именно на befor
+        transform: rotate(135deg)
+        top: 0
+        transition: .7s all
+    &__toggle:checked + &__button &__icon::after // при нажатии на &__toggle воздействие оказывается на дочерний элемент &__button, а именно на псевдоэлемент &__icon, а именно на after
+        transform: rotate(-135deg)
+        top: 0
+        transition: .7s all

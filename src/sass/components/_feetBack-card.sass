@@ -1,0 +1,58 @@
+.feetBack-card
+    width: 85%
+    background: rgba($color-white, 0.75) // задаём НЕпрозрачность для фона карты
+    box-shadow: $box-shadow
+    margin: 0 auto // блочный элемент внутри блочного можно выравнить так
+    padding: 6rem
+    @include respond(tab-port) // адаптив
+        width: 75%
+        padding: 5rem
+    transform: skewX(-15deg) //делаем карточку наклонённый паралелограмм
+    @include respond(tab-port) // адаптив
+        transform: skewX(-10deg)
+    & > * // действие на все дочерние элементы
+        transform: skewX(15deg) // чтобы дочерне элементы не сгибались
+        @include respond(tab-port) // адаптив
+        transform: skewX(10deg)
+            text-align: center
+            
+    &__img
+        width: 15rem
+        height: 15rem
+        background: green
+        float: left // чтобы он встал слева
+        border-radius: 100rem
+        shape-outside: circle(50% at 50% 50%) // свойство придаёт форму тексту, значение этого свойства нужно подобрать на сайте https://bennettfeely.com/clippy/
+        -webkit-shape-outside: circle(50% at 50% 50%)
+        margin-right: 4rem
+        position: relative
+        overflow: hidden // т.к. это обвёртка изображения и она закруглённая, чтобы изображении выглядело тоже круглым, скрывает края изображения выходящие за пределы круга(обвёртки)
+        @include respond(tab-port) // адаптив
+            float: none
+            margin: 0 auto
+            margin-bottom: 3rem
+        img
+            height: 100% // т.к. само изображение больше круглой обвёртки, чтобы оно помещлось в обвёртку и было ровно по середине, делаем его равным обвёртке
+            transform: scale(1.2) // увеличение равное 120% 
+            transition: .7s all
+
+            
+    &__name
+        text-transform: uppercase
+        text-align: center
+        font-size: 2rem
+        letter-spacing: .2rem
+        font-weight: 400
+        color: $color-white
+        position: absolute // способ центрирования
+        top: 50% // способ центрирования
+        left: 50% // способ центрирования
+        transform: translate(-50%, -10%) // способ центрирования
+        opacity: 0
+        transition: .7s all
+    &:hover &__name
+        transform: translate(-50%, -50%)
+        opacity: 1
+    &:hover img
+        transform: scale(1) // т.е. размер равен 100%
+        filter: blur(.3rem) brightness(80%) // blur(замутнить на .3rem) brightness(затемнить на 80%)

@@ -1,0 +1,58 @@
+
+%button-style // создаём шаблон. но при добавлении шаблона, в скомпилированном css файле эта часть кода переместиться в самое начало т.е. ввверх, и из-за этого могут перебиваться стили, так как приоритет у написанных позже
+    position: relative // чтобы можно было абсолютно позиционировать дочерний псевдоэлемент
+    @include styie-link ($color-gary)
+    padding: 1.5rem 4rem
+    background-color: $color-white
+    border-radius: 5rem
+    transition: all .5s
+    font-size: 2rem
+
+.btn
+    &, &:link, &:visited // так как наша кнопка сделана из ссылки, то мы стилизуем её обычный вид, и вид после посещения (& означает что свойства распространяются не только на кноку выполненную из ссылки, но и на обычную кнопку с таким же классом)
+        @extend %button-style
+        border: none
+
+        @include respond(tab-land) // адаптив
+            font-size: 1.8rem
+            padding: 1.2rem 3rem
+
+        @include respond(tab-port) // адаптив
+            padding: 2rem 5rem
+    &:hover // чтобы hover и active взаимодействовали, hover ДОЛЖЕН НАЗНАЧАТЬСЯ РАНЬШЕ active
+        transform: translateY(-.4rem)
+        box-shadow: $box-shadow
+        &::after
+            transform: scaleX(1.5) scaleY(1.8) // при наведении расширяет наш псевдоэлемент по оси Х и оси У
+            opacity: 0
+    &:active // чтобы hover и active взаимодействовали, hover ДОЛЖЕН НАЗНАЧАТЬСЯ РАНЬШЕ active
+        transform: translateY(-.2rem)
+        box-shadow: $box-shadow
+        &::after
+            transform: scaleX(1.5) scaleY(1.8) // при наведении расширяет наш псевдоэлемент по оси Х и оси У
+            opacity: 0
+    &::after // создаём дочерний псевдоэлемент
+        content: "" // обязательно надоуказать (хотябы пустой) иначе псевдоэлемент не сработает
+        background-color: $color-white
+        width: 100%
+        height: 100%
+        border-radius: 5rem
+        display: inline-block
+        position: absolute
+        top: 0
+        left: 0
+        z-index: -1
+        transition: all .3s
+    &_main
+        animation-name: departure_batton
+        animation-duration: 1s // если не указать время анимация не заработает
+        animation-delay: 2s// задержка анимации чтобы сайт успел прогрузиться
+        animation-timing-function: ease // чтобы анимация была плавная
+        animation-fill-mode: backwards // чтобы приобновлении кнопки сначала небыло, а потом она появлялась
+.btn_brown
+    &, &:link, &:visited
+        background: $color-brown-dark
+        color: $color-white
+    &:hover
+    &::after
+        background: $color-brown-dark
